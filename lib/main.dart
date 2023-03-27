@@ -1,4 +1,5 @@
-// Build an app that generates a random number between 0 and 1000 when a button is tapped and displays for example: The number 3 is odd.
+// Build an app that generates a random number between 0 and 1000 
+// when a button is tapped and displays for example: The number 3 is odd.
 // The color of the text must change according to the number: red if is odd, green if is even.
 // Also change the widget of the FAB between a text and an add icon (text if odd, icon if even)
 
@@ -41,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _number = r.nextInt(1000);
-    isOdd = _number % 2 == 1;
+    isOdd = _number.isOdd;
     super.initState();
   }
 
@@ -54,20 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    late Text text;
+    if(isOdd){
+      text = Text(
+          'The number $_number is odd',
+          style: TextStyle(color: isOdd ? Colors.red : Colors.green),
+        );
+    }else{
+      text = Text(
+          'The number $_number is even',
+          style: TextStyle(color: isOdd ? Colors.red : Colors.green),
+        );
+
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'The number $_number is ${isOdd ? 'odd' : 'even'}',
-              style: TextStyle(color: isOdd ? Colors.red : Colors.green),
-            ),
-          ],
+        child: Text(
+          'The number $_number is ${isOdd ? 'odd' : 'even'}',
+          style: TextStyle(color: isOdd ? Colors.red : Colors.green),
         ),
+        // alternative solution: use the text widget we have initialized above
+        // text
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _generateNew,
